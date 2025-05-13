@@ -1,0 +1,38 @@
+{
+  "ajo":{
+    "name":"Andrej",
+    "point" : 26
+  },
+  "tina":{
+    "name":"Tina Ch.",
+    "point" : 34
+  },
+  "dusan":{
+    "name":"Dušan",
+    "point" : 27
+  },
+  "vlado":{
+    "name":"Vlado",
+    "point" : 32
+  },
+  "miro":{
+    "name":"Miro",
+    "point" : 33
+  },
+  "jano":{
+    "name":"Dedo Jano",
+    "point" : 39
+  },
+  "misa":{
+    "name":"Miška",
+    "point" : 31
+  },
+  "tinaZ":{
+    "name":"Tina Ž.",
+    "point" : 32
+  },
+  "janci":{
+    "name":"Janči",
+    "point" : 26
+  }
+}

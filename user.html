@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav>
+  <a href="index.html">Home</a>
+</nav>
+
+<h1>Tipovačka 2025</h1>
+<div id="profile"></div>
+
+<table id="Static table">
+  <thead>
+  <tr>
+    <th>Domaci</th>
+    <th>Hostia</th>
+    <th>Tip</th>
+    <th>Point</th>
+  </tr>
+  </thead>
+  <tbody id="user-table-body">
+  <!-- Row will be inserted by JS -->
+  </tbody>
+</table>
+
+<script>
+  // Get the user from the URL
+  const params = new URLSearchParams(window.location.search);
+  const user = params.get('user');
+
+  // Dummy user data
+  const users = {
+    ajo: { name: "Andrej" },
+    tina: {name: "Tina Ch." },
+    dusan: {name: "Dušan" },
+    vlado: {name: "Vlado" },
+    miro: {name: "Miro" },
+    jano: {name: "Dedo Jano" },
+    misa: {name: "Miška" },
+    tinaZ: {name: "Tina Ž." },
+    janci: {name: "Janči" },
+  };
+
+
+  const profile = users[user];
+  const profileDiv = document.getElementById("profile");
+
+  // Show name below to a table
+  if (profile) {
+    profileDiv.innerHTML = `
+      <p><strong>Name:</strong> ${profile.name}</p>
+    `;
+
+    const tipsPath = `data/personal/${user}.json`;
+
+    Promise.all([
+      fetch('data/common/allMatchesData.json').then(res => res.json()),
+      fetch(tipsPath).then(res => res.json())
+    ])
+            .then(([matches, tips]) => {
+              const tableBody = document.getElementById("user-table-body");
+
+              matches.forEach(match => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+          <td>${match.home}</td>
+          <td>${match.away}</td>
+          <td>${tips[match.id].tip || '-'}</td>
+          <td>${tips[match.id].point || '-'}</td>
+        `;
+                tableBody.appendChild(row);
+              });
+            })
+            .catch(error => {
+              console.error('Error loading data:', error);
+            });
+  }
+</script>
+</body>
+</html>
