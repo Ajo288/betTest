@@ -7,6 +7,7 @@
 </head>
 <body>
 
+<!--------Log-in-------->
 <div class="login-container">
     <h2>Prihlásenie</h2>
 
@@ -14,11 +15,17 @@
         <input type="text" id="username" placeholder="Používateľské meno" required>
         <input type="password" id="password" placeholder="Heslo" required>
 
-        <button type="submit">Prihlásiť</button>
+        <button class="simpleBtn">Prihlásiť</button>
         <p id="error" class="error"></p>
     </form>
 </div>
-
 <script src="js/login.js" type="module"></script>
+
+<!--------Sign-in-------->
+<div class="logout-container">
+    <a href="register.html">
+        <button class="simpleBtn">Registrácia</button>
+    </a>
+</div>
 </body>
 </html>

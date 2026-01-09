@@ -5,7 +5,15 @@
     <title>Home</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+
+<!-- logout button -->
+<div class="logout-container">
+    <button id="logoutBtn">Odhlásiť</button>
+</div>
+
+
+<h1>Tipovačka MS v hokeji 2025</h1>
+<h2>Prehlad ziskanych bodov</h2>
 
 <script>
     // Auth
@@ -14,32 +22,25 @@
     }
 </script>
 
+
 <header class="header">
-<nav>
-    <a href="user.html?user=ajo">Ajo</a>
-    <a href="user.html?user=tina">Tina</a>
-    <a href="user.html?user=dusan">Dusan</a>
-    <a href="user.html?user=vlado">Vlado</a>
-    <a href="user.html?user=miro">Miro</a>
-    <a href="user.html?user=jano">Dedo Jano</a>
-    <a href="user.html?user=misa">Miška</a>
-    <a href="user.html?user=tinaZ">Tina Z.</a>
-    <a href="user.html?user=janci">Janci</a>
+    <nav>
+        <a href="user.html?user=ajo">Ajo</a>
+        <a href="user.html?user=tina">Tina</a>
+        <a href="user.html?user=dusan">Dusan</a>
+        <a href="user.html?user=vlado">Vlado</a>
+        <a href="user.html?user=miro">Miro</a>
+        <a href="user.html?user=jano">Dedo Jano</a>
+        <a href="user.html?user=misa">Miška</a>
+        <a href="user.html?user=tinaZ">Tina Z.</a>
+        <a href="user.html?user=janci">Janci</a>
 
-</nav>
+    </nav>
 
-<!-- logout button -->
-<div class="logout-container">
-    <button id="logoutBtn">Odhlásiť</button>
-</div>
-
+    <script src="js/logout.js" type="module"></script>
 </header>
-<script src="js/logout.js" type="module"></script>
 
-
-<h1>Tipovačka MS v hokeji 2025</h1>
-<h2>Prehlad ziskanych bodov</h2>
-
+<body>
 <table id="leaderboard">
     <thead>
     <tr>
@@ -63,10 +64,8 @@
 
             sortedUsers.forEach(user => {
                 const row = document.createElement('tr');
-                row.innerHTML = `
-        <td>${user.name}</td>
-        <td>${user.point}</td>
-      `;
+                row.innerHTML = `<td>${user.name}</td>
+                                 <td>${user.point}</td>`;
                 tbody.appendChild(row);
             });
         })

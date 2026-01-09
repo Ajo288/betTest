@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrácia</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<header class="header">
+
+    <div class="login-container">
+        <h2>Registrácia</h2>
+    </div>
+</header>
+
+<body>
+    <div>
+        <form id="registerForm">
+            <input type="text" id="username" placeholder="Používateľské meno" required>
+            <input type="password" id="password" placeholder="Heslo" required>
+
+            <button type="submit" class="simpleBtn">Registrovať</button>
+            <p id="error" class="error"></p>
+        </form>
+    </div>
+
+
+    <div class="logout-container">
+        <a href="login.html">
+            <button class="simpleBtn">Spat na prihlasenie</button>
+        </a>
+    </div>
+</body>
+
+<script src="js/register.js" type="module"></script>
+
+</html>
