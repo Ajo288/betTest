@@ -1,73 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Home</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+<script>
+    // Auth
+    if (!localStorage.getItem("token")) {
+        window.location.href = "login.html";
+    }
+</script>
+
+<header class="header">
 <nav>
-  <a href="user.html?user=ajo">Ajo</a>
-  <a href="user.html?user=tina">Tina</a>
-  <a href="user.html?user=dusan">Dusan</a>
-  <a href="user.html?user=vlado">Vlado</a>
-  <a href="user.html?user=miro">Miro</a>
-  <a href="user.html?user=jano">Dedo Jano</a>
-  <a href="user.html?user=misa">Miška</a>
-  <a href="user.html?user=tinaZ">Tina Z.</a>
-  <a href="user.html?user=janci">Janci</a>
+    <a href="user.html?user=ajo">Ajo</a>
+    <a href="user.html?user=tina">Tina</a>
+    <a href="user.html?user=dusan">Dusan</a>
+    <a href="user.html?user=vlado">Vlado</a>
+    <a href="user.html?user=miro">Miro</a>
+    <a href="user.html?user=jano">Dedo Jano</a>
+    <a href="user.html?user=misa">Miška</a>
+    <a href="user.html?user=tinaZ">Tina Z.</a>
+    <a href="user.html?user=janci">Janci</a>
 
 </nav>
 
-<!--Drop down menu-->
-<!--<select id="userProfile" onchange="loadUserData()">
-  <option value="1">User 1</option>
-  <option value="2">User 2</option>
-  <option value="3">User 3</option>
-  <option value="4">User 4</option>
-  <option value="5">User 5</option>
-  <option value="6">User 6</option>
-  <option value="7">User 7</option>
-  <option value="8">User 8</option>
-  <option value="9">User 9</option>
-  <option value="10">User 10</option>
-</select>-->
+<!-- logout button -->
+<div class="logout-container">
+    <button id="logoutBtn">Odhlásiť</button>
+</div>
+
+</header>
+<script src="js/logout.js" type="module"></script>
+
 
 <h1>Tipovačka MS v hokeji 2025</h1>
 <h2>Prehlad ziskanych bodov</h2>
-</body>
 
 <table id="leaderboard">
-  <thead>
-  <tr>
-    <th>Name</th>
-    <th>Points</th>
-  </tr>
-  </thead>
-  <tbody id="leaderboard-body">
-  <!-- Rows will be inserted by JavaScript -->
-  </tbody>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Points</th>
+    </tr>
+    </thead>
+    <tbody id="leaderboard-body">
+    <!-- Rows will be inserted by JavaScript -->
+    </tbody>
 </table>
 
 <script>
-  fetch('data/common/results.json')
-          .then(res => res.json())
-          .then(leaderboard => {
+    fetch('data/common/results.json')
+        .then(res => res.json())
+        .then(leaderboard => {
             const tbody = document.getElementById('leaderboard-body');
 
             // Convert object to array and sort by points descending
             const sortedUsers = Object.values(leaderboard).sort((a, b) => b.point - a.point);
 
             sortedUsers.forEach(user => {
-              const row = document.createElement('tr');
-              row.innerHTML = `
+                const row = document.createElement('tr');
+                row.innerHTML = `
         <td>${user.name}</td>
         <td>${user.point}</td>
       `;
-              tbody.appendChild(row);
+                tbody.appendChild(row);
             });
-          })
-          .catch(err => console.error('Error loading leaderboard:', err));
+        })
+        .catch(err => console.error('Error loading leaderboard:', err));
 </script>
-
+</body>
 </html>
