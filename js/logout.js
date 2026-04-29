@@ -10,5 +10,5 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
     localStorage.removeItem("token");
 
     // presmerovanie na login
-    window.location.href = "login.html";
+    window.location.href = "./login.html";
 });

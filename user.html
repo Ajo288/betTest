@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>User Profile</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
 
@@ -14,7 +14,6 @@
 
     <button id="logoutBtn">Odhlásiť</button>
 </div>
-<script src="js/logout.js" type="module"></script>
 
 <h1>Tipovačka 2025</h1>
 <div id="profile"></div>
@@ -34,59 +33,9 @@
     </tbody>
 </table>
 
-<script>
-    // Get the user from the URL
-    const params = new URLSearchParams(window.location.search);
-    const user = params.get('user');
-
-    // Dummy user data
-    const users = {
-        ajo: {name: "Andrej"},
-        tina: {name: "Tina Ch."},
-        dusan: {name: "Dušan"},
-        vlado: {name: "Vlado"},
-        miro: {name: "Miro"},
-        jano: {name: "Dedo Jano"},
-        misa: {name: "Miška"},
-        tinaZ: {name: "Tina Ž."},
-        janci: {name: "Janči"},
-    };
 
 
-    const profile = users[user];
-    const profileDiv = document.getElementById("profile");
-
-    // Show name below to a table
-    if (profile) {
-        profileDiv.innerHTML = `
-      <p ><strong>Meno:</strong> <strong style="font-size: 20px ">${profile.name}</strong></p>
-    `;
-
-        const tipsPath = `data/personal/${user}.json`;
-
-        Promise.all([
-            fetch('data/common/allMatchesData.json').then(res => res.json()),
-            fetch(tipsPath).then(res => res.json())
-        ])
-            .then(([matches, tips]) => {
-                const tableBody = document.getElementById("user-table-body");
-
-                matches.forEach(match => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-          <td>${match.home}</td>
-          <td>${match.away}</td>
-          <td>${tips[match.id].tip || '-'}</td>
-          <td>${tips[match.id].point || '-'}</td>
-          <td>${match.result}</td>
-        `;
-                    tableBody.appendChild(row);
-                });
-            })
-            .catch(error => {
-                console.error('Error loading data:', error);
-            });
-    }
-</script>
+<script src="js/logout.js" type="module"></script>
+    <script src="js/user.js" type="module"></script>
 </body>
 </html>

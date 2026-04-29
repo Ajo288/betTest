@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="./css/main.css">
 </head>
+
+<body>
 
 <!-- logout button -->
 <div class="logout-container">
@@ -22,23 +24,11 @@
     }
 </script>
 
-
 <header class="header">
-    <nav>
-        <a href="user.html?user=ajo">Ajo</a>
-        <a href="user.html?user=tina">Tina</a>
-        <a href="user.html?user=dusan">Dusan</a>
-        <a href="user.html?user=vlado">Vlado</a>
-        <a href="user.html?user=miro">Miro</a>
-        <a href="user.html?user=jano">Dedo Jano</a>
-        <a href="user.html?user=misa">Miška</a>
-        <a href="user.html?user=tinaZ">Tina Z.</a>
-        <a href="user.html?user=janci">Janci</a>
-
+    <nav id="user-nav">
     </nav>
 </header>
 
-<body>
 <table id="leaderboard">
     <thead>
     <tr>
@@ -51,23 +41,8 @@
     </tbody>
 </table>
 
-<script>
-    fetch('data/common/results.json')
-        .then(res => res.json())
-        .then(leaderboard => {
-            const tbody = document.getElementById('leaderboard-body');
 
-            // Convert object to array and sort by points descending
-            const sortedUsers = Object.values(leaderboard).sort((a, b) => b.point - a.point);
-
-            sortedUsers.forEach(user => {
-                const row = document.createElement('tr');
-                row.innerHTML = `<td>${user.name}</td>
-                                 <td>${user.point}</td>`;
-                tbody.appendChild(row);
-            });
-        })
-        .catch(err => console.error('Error loading leaderboard:', err));
-</script>
+<script type="module" src="js/leaderboard.js"></script>
+<script src="js/recipients.js" type="module"></script>
 </body>
 </html>
