@@ -1,14 +1,14 @@
-// ✅ overenie tokenu
-const token = localStorage.getItem("token");
-if (!token) {
-    window.location.href = "login.html";
-}
-
-// ✅ Logout tlačidlo
-document.getElementById("logoutBtn").addEventListener("click", () => {
-    // odstránenie tokenu
-    localStorage.removeItem("token");
-
-    // presmerovanie na login
-    window.location.href = "./login.html";
+document.addEventListener("DOMContentLoaded", () => {
+    const logoutBtn = document.getElementById("logoutBtn");
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", () => {
+            logoutBtn.addEventListener("click", logout);
+        });
+    }
 });
+
+export function logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("authType");
+    window.location.href = "./login.html";
+}

@@ -4,14 +4,25 @@
     <meta charset="UTF-8">
     <title>User Profile</title>
     <link rel="stylesheet" href="./css/main.css">
+    <script src="./js/config.js"></script>
 </head>
 <body>
+
+<script type="module">
+    import { requireAuth } from "./js/auth.js";
+    requireAuth();
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("authType");
+        window.location.href = "./login.html";
+    });
+</script>
 
 <div class="logout-container">
     <a href="index.html">
         <button class="simpleBtn">Spat na prehlad</button>
     </a>
-
     <button id="logoutBtn">Odhlásiť</button>
 </div>
 
@@ -33,9 +44,6 @@
     </tbody>
 </table>
 
-
-
-<script src="js/logout.js" type="module"></script>
-    <script src="js/user.js" type="module"></script>
+<script src="js/user.js" type="module"></script>
 </body>
 </html>

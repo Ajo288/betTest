@@ -1,47 +1,62 @@
-const API_URL = "https://api.tvoja-app.sk"; // zmeň na svoj backend
+import { AUTH_CONFIG } from "./auth-config.js";
 
-// skip if already auth
-if (localStorage.getItem("token")) {
-    window.location.href = "index.html";
-}
+const form = document.getElementById("loginForm");
+const errorEl = document.getElementById("error");
 
-document.getElementById("loginForm").addEventListener("submit", async e => {
+form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const username = document.getElementById("username").value;
+    const loginType = document.getElementById("loginType").value;
+    const username = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value;
-    const errorEl = document.getElementById("error");
 
     errorEl.textContent = "";
 
-    // try {
-    //     const res =
-    //
-    //         await fetch(API_URL + "/login", {
-    //         method: "POST",
-    //         headers: { "Content-Type": "application/json" },
-    //         body: JSON.stringify({ username, password })
-    //     });
-    //
-    //     if (!res.ok) {
-    //         throw new Error("Nesprávne meno alebo heslo");
-    //     }
-    //
-    //     const { token } = await res.json();
-    //
-    //     // 💾 uloženie tokenu
-    //     localStorage.setItem("token", token);
-    //
-    //     // ➡️ presmerovanie
-    //     window.location.href = "index.html";
-    //
-    // } catch (err) {
-    //     // console.log(err.message)
-    //     errorEl.textContent = err.message;
-    // }
+    if (loginType === "admin") {
 
-    //TODO: NATVRDO NASTAVENIE TOKENU - v index.html nastane presmerovanie - NEFUNGUJE await fetch(API_URL + "/login",
-    localStorage.setItem("token", "FAKE_TOKEN")
-        // ➡️ presmerovanie
-        window.location.href = "index.html";
+        const basicAuth = btoa(`${username}:${password}`);
+
+        localStorage.setItem("token", basicAuth);
+        localStorage.setItem("authType", "basic");
+        localStorage.setItem("role", "admin");
+
+        window.location.href = "./index.html";
+        return;
+    }
+
+    // --- USER: Keycloak Resource Owner Password flow ---
+    try {
+        const res = await fetch(
+            `${AUTH_CONFIG.keycloakBaseUrl}/realms/${AUTH_CONFIG.realm}/protocol/openid-connect/token`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: new URLSearchParams({
+                    grant_type: "password",
+                    client_id: AUTH_CONFIG.clientId,
+                    username,
+                    password
+                })
+            }
+        );
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            // Keycloak vracia error_description pri zlých credentials
+            errorEl.textContent = data.error_description ?? "Nesprávne meno alebo heslo.";
+            return;
+        }
+
+        localStorage.setItem("token", data.access_token);
+        localStorage.setItem("authType", "bearer");
+
+        window.location.href = "./index.html";
+
+    } catch (err) {
+        console.error(err);
+        errorEl.textContent = "Chyba spojenia so serverom.";
+    }
 });

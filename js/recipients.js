@@ -1,5 +1,6 @@
 // js/recipients.js
 import { getRecipients } from "./api.js";
+import {logout} from "./logout.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -30,5 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(err => {
             console.error("Error loading recipients:", err);
             nav.innerHTML = "<span>Chyba pri načítaní používateľov</span>";
+            logout();
         });
 });

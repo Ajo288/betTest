@@ -1,6 +1,6 @@
-const BASE_URL = "http://localhost:8080";
+const BASE_URL = window.APP_CONFIG?.BASE_URL ?? "http://localhost:8080";
 
-const applicationId = "805038b1-1c12-4094-8431-bec5ee55d305";
+const applicationId = window.APP_CONFIG?.APPLICATION_ID ?? "fda404bf-efbc-4e23-a625-873cc53d7f73";
 
 function getAuthHeader() {
     const token = localStorage.getItem("token");
@@ -16,9 +16,7 @@ function getAuthHeader() {
     }
 
     // default fallback = BASIC
-    return {
-        "Authorization": "Basic " + "YWRtaW46c2VjcmV0"
-    };
+    return { "Authorization": "Basic " + token };
 }
 
 export function getUserOverall(recipientId) {
@@ -29,7 +27,7 @@ export function getUserOverall(recipientId) {
 
 export function getAllUsersOverall() {
     return fetch(
-        `http://localhost:8080/v1/applications/${applicationId}/recipients/overall`,
+        `${BASE_URL}/v1/applications/${applicationId}/recipients/overall`,
         {
             headers: {
                 ...getAuthHeader()
@@ -59,7 +57,7 @@ export function updateBet(recipientId, matchId, home, away, authToken) {
 // -------------------------
     export function getRecipients() {
         return fetch(
-            `http://localhost:8080/v1/applications/${applicationId}/recipients`,
+            `${BASE_URL}/v1/applications/${applicationId}/recipients`,
             {
                 headers: {
                     ...getAuthHeader()

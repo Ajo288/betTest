@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Prihlásenie</title>
     <link rel="stylesheet" href="./css/main.css">
+    <script src="./js/config.js"></script>
 </head>
 <body>
 
@@ -15,7 +16,13 @@
         <input class="simpleInput" type="text" id="username" placeholder="Používateľské meno" required>
         <input class="simpleInput" type="password" id="password" placeholder="Heslo" required>
 
-        <button class="simpleBtn">Prihlásiť</button>
+        <!-- 🔽 TU JE NOVÁ VEC -->
+        <select id="loginType" class="simpleInput">
+            <option value="user">User (Keycloak)</option>
+            <option value="admin">Admin (Basic)</option>
+        </select>
+
+        <button class="simpleBtn" type="submit">Prihlásiť</button>
         <p id="error" class="error"></p>
     </form>
 </div>

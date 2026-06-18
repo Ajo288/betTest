@@ -43,3 +43,7 @@
     border-radius: 10px;
     outline: none;
 }
+
+.updateBtn {
+    margin-left: 40px;
+}

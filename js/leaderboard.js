@@ -1,4 +1,5 @@
 import { getAllUsersOverall } from "./api.js";
+import {logout} from "./logout.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -42,5 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(err => {
             console.error(err);
             tbody.innerHTML = "<tr><td colspan='2'>Error loading data</td></tr>";
+            logout()
         });
 });

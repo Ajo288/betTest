@@ -1,19 +1,20 @@
 import { updateBet } from "./api.js";
 
-export function initUserEvents(tbody, recipientId) {
+export function initUserEvents(tbody, recipientId, isOwnProfile) {
 
     tbody.addEventListener("click", (e) => {
 
-        // 🔹 NAHRAŤ
-        if (e.target.classList.contains("updateBtn")) {
+        // 🔹 NAHRAŤ / OPRAVIŤ
+        if (e.target.classList.contains("updateBtn") || e.target.classList.contains("reUpdateBtn")) {
 
             const matchId = e.target.dataset.match;
+            const closed = e.target.dataset.closed === "true";
 
             e.target.outerHTML = `
                 <input type="number" class="homeInput" style="width:50px;">
                 :
                 <input type="number" class="awayInput" style="width:50px;">
-                <button class="okBtn simpleBtn" data-match="${matchId}">OK</button>
+                <button class="okBtn simpleBtn" data-match="${matchId}" data-closed="${closed}">OK</button>
             `;
         }
 
@@ -21,6 +22,7 @@ export function initUserEvents(tbody, recipientId) {
         if (e.target.classList.contains("okBtn")) {
 
             const matchId = e.target.dataset.match;
+            const closed = e.target.dataset.closed === "true";
             const row = e.target.closest("tr");
 
             const home = row.querySelector(".homeInput").value;
@@ -30,7 +32,11 @@ export function initUserEvents(tbody, recipientId) {
                 .then(res => {
                     if (!res.ok) throw new Error();
 
-                    row.children[2].innerHTML = `${home}:${away}`;
+                    const reUpdateBtn = (!closed && isOwnProfile)
+                        ? ` <button class="updateBtn simpleBtn" data-match="${matchId}" data-closed="${closed}">Opraviť</button>`
+                        : "";
+
+                    row.children[2].innerHTML = `${home}:${away}${reUpdateBtn}`;
                 })
                 .catch(() => alert("Chyba pri ukladaní"));
         }
